@@ -4,6 +4,7 @@ import "antd/dist/antd.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/Register";
+import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route exact path="/Login" element={<Login />} />
           <Route exact path="/Register" element={<Register />} />
+          <Route exact path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

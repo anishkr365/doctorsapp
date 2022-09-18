@@ -1,15 +1,32 @@
 import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"
+import toast from 'react-hot-toast'
 import React from 'react'
 function Login() {
-  const onfinish = (values)=>{
-    console.log("Received values from form",values);
+  const navigate = useNavigate();
+  const onFinish = async(values)=>{
+   try{
+   const response = await axios.post('/api/user/login',values);
+   if(response.data.success){
+    toast.success(response.data.message);
+    
+    localStorage.setItem("token",response.data.data);
+    navigate("/");
+   }else{
+    toast.error(response.data.message)
+   }
+   }
+   catch(error){
+    toast.error("something went wrong")
+    console.log(error)
+   }
   }
   return (
     <div className='authentication'>
       <div className='authentication-form card p-3'>
         <h1 className='card-title'>Hello</h1>
-        <Form layout="vertical" onFinish={onfinish}>
+        <Form layout="vertical" onFinish={onFinish}>
           
           <Form.Item label="Email" name="email">
             <Input placeholder="Email" />
